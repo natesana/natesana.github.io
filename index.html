@@ -662,7 +662,7 @@
     <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; align-items: center; justify-items: center; margin-top: 50px;">
       <div style="text-align: center;">
         <img src="Genentech.jpeg" alt="Genentech" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
-        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">Prescient Design</p>
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">Prescient Design/Genentech</p>
       </div>
       <div style="text-align: center;">
         <img src="Amgen.png" alt="Amgen" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
@@ -709,9 +709,14 @@
       });
     });
 
-    // Prevent default anchor behavior and scroll smoothly
+    // Prevent default anchor behavior and scroll smoothly (except for external links)
     navLinks.forEach(link => {
       link.addEventListener('click', (e) => {
+        // Skip smooth scroll for external links or links with target="_blank"
+        if (link.getAttribute('target') === '_blank' || !link.getAttribute('href').startsWith('#')) {
+          return;
+        }
+        
         e.preventDefault();
         const targetId = link.getAttribute('href').slice(1);
         const targetSection = document.getElementById(targetId);
