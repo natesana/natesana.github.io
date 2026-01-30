@@ -3,97 +3,723 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Your Name</title>
+  <title>Natesan Mani - Computational Biophysics & Drug Design</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      line-height: 1.6;
+    * {
       margin: 0;
       padding: 0;
-      background-color: #f5f5f5;
-    }
-    header, section {
-      padding: 20px;
-      max-width: 800px;
-      margin: auto;
-    }
-    header {
-      background-color: #333;
-      color: white;
-      text-align: center;
-    }
-    nav {
-      text-align: center;
-      margin-top: 10px;
-    }
-    nav a {
-      margin: 0 10px;
-      color: white; 
-      text-decoration: none;
-      font-weight: bold;
-    }
-    nav a:hover {
-      color: #007acc;
-    }
-    img.profile {
-      max-width: 150px;
-      border-radius: 50%;
-      display: block;
-      margin: 10px auto;
-    }
-    section {
-      background: white;
-      margin-top: 20px;
-      border-radius: 8px;
-      box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-    }
-    header nav a,
-    header nav a:link,  
-    header nav a:visited {
-      color: #fff !important;        /* make links white by default */
-      font-weight: bold;
-      text-decoration: none;
-      margin: 0 10px;
+      box-sizing: border-box;
     }
 
-    header nav a:hover,
-    header nav a:focus {
-      color: #007acc !important;     /* visible hover color */
-      text-decoration: underline;
+    :root {
+      --primary: #ffffff;
+      --secondary: #f5f5f5;
+      --accent: #000000;
+      --accent-alt: #333333;
+      --text-light: #1a1a1a;
+      --text-muted: #666666;
+      --bg-gradient: linear-gradient(135deg, #ffffff 0%, #f5f5f5 100%);
+      --glow: 0 0 30px rgba(0, 0, 0, 0.1);
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: 'Segoe UI', Trebuchet MS, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-light);
+      line-height: 1.7;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top Navigation */
+    .top-nav {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      padding: 25px 40px;
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      z-index: 1000;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      gap: 40px;
+    }
+
+    .top-nav a {
+      color: var(--text-light);
+      text-decoration: none;
+      font-weight: 600;
+      transition: all 0.3s ease;
+      position: relative;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .top-nav a:hover,
+    .top-nav a.active {
+      color: var(--accent);
+    }
+
+    .top-nav a::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 0;
+      height: 2px;
+      background: var(--accent);
+      transition: width 0.3s ease;
+    }
+
+    .top-nav a:hover::after,
+    .top-nav a.active::after {
+      width: 100%;
+    }
+
+    /* Main Content Container */
+    .main-container {
+      display: flex;
+      margin-top: 70px;
+      flex-direction: column;
+      min-height: calc(100vh - 70px);
+    }
+
+    /* Left Sidebar */
+    .sidebar {
+      display: none;
+    }
+
+    .sidebar-content {
+      text-align: center;
+      width: 100%;
+    }
+
+    .sidebar-content .profile-img {
+      width: 180px;
+      height: 180px;
+      margin-bottom: 20px;
+    }
+
+    .sidebar-content h1 {
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+    }
+
+    /* Right Content Area */
+    .content-area {
+      margin-left: 0;
+      width: 100%;
+      padding: 60px 40px;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Hero/Intro Section */
+    .hero-intro {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 50px;
+      align-items: flex-start;
+      margin-bottom: 60px;
+    }
+
+    .hero-intro-profile {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .hero-intro-profile .profile-img {
+      width: 200px;
+      height: 200px;
+      margin-bottom: 20px;
+    }
+
+    .hero-intro-profile h1 {
+      font-size: 2rem;
+      color: var(--accent);
+      margin: 0;
+    }
+
+    .hero-intro-content {
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+    }
+
+    .profile-img {
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      object-fit: cover;
+      margin: 0 auto 30px;
+      box-shadow: var(--glow), 0 20px 40px rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content h1 {
+      font-size: 4.5rem;
+      font-weight: 700;
+      letter-spacing: -2px;
+      margin-bottom: 15px;
+      color: var(--accent);
+    }
+
+    .hero-content .subtitle {
+      font-size: 1.4rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 500;
+    }
+
+    .hero-content p {
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+      max-width: 700px;
+      margin-left: auto;
+      margin-right: auto;
+      line-height: 1.8;
+    }
+
+    .cta-buttons {
+      display: flex;
+      gap: 20px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 14px 32px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      text-decoration: none;
+      cursor: pointer;
+      border: 2px solid;
+      transition: all 0.3s ease;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      border-color: var(--accent);
+      color: var(--primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--glow), 0 10px 25px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border-color: var(--text-muted);
+      color: var(--text-light);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      transform: translateY(-2px);
+      background: rgba(0, 0, 0, 0.02);
+    }
+
+/* Section Styling */
+    section {
+      padding: 0;
+      max-width: 100%;
+      margin: 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    section h2 {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: var(--accent);
+      position: relative;
+      padding-bottom: 15px;
+    }
+
+    section h2::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 60px;
+      height: 3px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* About Section */
+    #about {
+      background: transparent;
+      padding: 0;
+      margin-bottom: 60px;
+    }
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0;
+    }
+
+    .about-visual {
+      display: none;
+    }
+
+    .about-text h3 {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin-bottom: 20px;
+      font-weight: 700;
+    }
+
+    .about-text p {
+      margin-bottom: 15px;
+      line-height: 1.8;
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    .highlights {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-top: 40px;
+    }
+
+    .highlight-box {
+      background: rgba(212, 175, 55, 0.05);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent);
+      transition: all 0.3s ease;
+    }
+
+    .highlight-box:hover {
+      background: rgba(212, 175, 55, 0.1);
+      transform: translateY(-3px);
+    }
+
+    .highlight-box h4 {
+      color: var(--accent);
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .highlight-box p {
+      margin: 0;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+    }
+
+    .about-visual {
+      position: relative;
+      height: 400px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .experience-card {
+      background: rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      border-radius: 12px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .experience-card:hover {
+      border-color: var(--accent);
+      background: rgba(0, 0, 0, 0.05);
+      transform: translateX(5px);
+    }
+
+    .experience-card h4 {
+      color: var(--accent);
+      font-size: 1.3rem;
+      margin-bottom: 5px;
+    }
+
+    .experience-card .company {
+      color: var(--text-muted);
+      font-size: 0.95rem;
+      margin-bottom: 15px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .experience-card p {
+      margin: 0;
+      color: var(--text-light);
+      line-height: 1.7;
+    }
+
+    /* Education Section */
+    #education {
+      background: linear-gradient(180deg, rgba(0, 217, 255, 0.03), transparent);
+    }
+
+    .education-timeline {
+      position: relative;
+      padding: 40px 0;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 200px 1fr;
+      gap: 40px;
+      margin-bottom: 50px;
+      position: relative;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: 95px;
+      top: 30px;
+      width: 30px;
+      height: 30px;
+      background: var(--accent);
+      border-radius: 50%;
+      border: 4px solid var(--primary);
+      box-shadow: var(--glow);
+    }
+
+    .timeline-item::after {
+      content: '';
+      position: absolute;
+      left: 109px;
+      top: 60px;
+      width: 2px;
+      height: calc(100% + 50px);
+      background: linear-gradient(180deg, var(--accent), transparent);
+    }
+
+    .timeline-item:last-child::after {
+      display: none;
+    }
+
+    .timeline-date {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 1.1rem;
+      padding-top: 5px;
+    }
+
+    .timeline-content {
+      background: rgba(0, 0, 0, 0.03);
+      padding: 25px;
+      border-radius: 12px;
+      border-left: 2px solid var(--accent);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .timeline-content h3 {
+      color: var(--text-light);
+      font-size: 1.4rem;
+      margin-bottom: 8px;
+    }
+
+    .timeline-content p {
+      color: var(--text-muted);
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    /* Skills Section */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+
+    .skill-category {
+      background: rgba(0, 0, 0, 0.03);
+      padding: 30px;
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.3s ease;
+    }
+
+    .skill-category:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .skill-category h3 {
+      color: var(--accent);
+      margin-bottom: 20px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 1.1rem;
+    }
+
+    .skill-tag {
+      display: inline-block;
+      background: rgba(0, 0, 0, 0.05);
+      color: var(--accent);
+      padding: 8px 16px;
+      border-radius: 20px;
+      margin-bottom: 10px;
+      margin-right: 10px;
+      font-size: 0.9rem;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .skill-tag:hover {
+      background: rgba(0, 0, 0, 0.08);
+      border-color: var(--accent);
+    }
+
+    /* Contact Section */
+    #contact {
+      background: transparent;
+      text-align: center;
+      padding: 0;
+    }
+
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      margin-top: 50px;
+    }
+
+    .contact-link {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 15px;
+      padding: 30px;
+      background: rgba(0, 0, 0, 0.03);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+      color: var(--text-light);
+      transition: all 0.3s ease;
+      flex: 1;
+      min-width: 200px;
+      max-width: 280px;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-link:hover {
+      background: rgba(0, 0, 0, 0.05);
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .contact-link i {
+      font-size: 2.5rem;
+      color: var(--accent);
+    }
+
+    .contact-link span {
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-size: 0.9rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 20px;
+      border-top: 1px solid rgba(0, 217, 255, 0.1);
+      color: var(--text-muted);
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+
+    section {
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    /* Responsive */
+    @media (max-width: 1024px) {
+      .hero-intro {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+
+      .hero-intro-profile {
+        text-align: center;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-nav {
+        padding: 15px 20px;
+        gap: 15px;
+        flex-wrap: wrap;
+      }
+
+      .content-area {
+        padding: 40px 20px;
+      }
+
+      .hero-intro {
+        grid-template-columns: 1fr;
+        gap: 20px;
+      }
+
+      .hero-intro-profile .profile-img {
+        width: 150px;
+        height: 150px;
+      }
+
+      .hero-intro-profile h1 {
+        font-size: 1.5rem;
+      }
     }
   </style>
 </head>
 <body>
-  <header>
-    <h1>Natesan Mani</h1>
-    <p>Welcome to my personal website!</p>
-    <nav>
-      <a href="#about">About Me</a>
-      <a href="#education">Education</a>
-      <a href="Resume_NatesanMani.pdf" target="_blank">Resume</a> 
-      <a href="https://www.linkedin.com/in/natesan-mani" target="_blank">LinkedIn</a>
-  </nav>
-</header>
-    </nav>
-  </header>
+  <!-- Top Navigation -->
+  <div class="top-nav">
+    <a href="#about" class="active">About</a>
+    <a href="Resume_NatesanMani.pdf" target="_blank" style="margin-left: auto;">Resume</a>
+  </div>
 
-  <section id="about">
-    <h2>About Me</h2>
-    <img src="Natesan.jpg" alt="Your Photo" class="profile" />
-    <p> Hello! I'm a PhD student in Chemical Engineering, working in the intersection of computational modelling, biophysics and proteomics. My research has focused on applying Molecular Dynamics (MD) to study protein motions, with an emphasis on studying viral spike protein and in antibody design </p>
-    <p> My thesis focuses on the dynamics of viral spike proteins and how changes in the protein structure, glycosylation profile etc, can impact the overall allostery and function of the Spike protein </p>
-    <p> During my internship at Prescient Design, Genentech, I worked with Jen Hofmann to design a workflow that can predict high-concentration properties of antibodies. This project leveraged the power of Coarse-Grained simulations in predicting physiological properties </p> 
-    <p> At Amgen, I designed antibodies that have a higher immune response by modifying the glycosylation sites on the Fc domain and performing atomistic MD to understand the structural underpinnings of binding. </p> 
-    <p> Outside of work, you can usually find me in the gym, exploring cafes and pubs in the Boston area, hiking and exploring National Parks (currently 15/63)
-    <p><em> You can find my latest resume on this site! Reach out to me to discuss potential opportunities, share ideas about drug discovery or the best hiking spots in the country! </em></p>
+  <div class="main-container">
+    <!-- Right Content Area -->
+    <div class="content-area">
+
+      <!-- About Section with Hero Intro -->
+      <section id="about">
+        <div class="hero-intro">
+          <div class="hero-intro-profile">
+            <img src="Natesan.jpg" alt="Natesan Mani" class="profile-img">
+            <h1>Natesan Mani</h1>
+          </div>
+          <div class="hero-intro-content">
+            <div class="about-grid">
+              <div class="about-text">
+        <h3>About Me</h3>
+        <p>My research expertise as a doctoral student at Northeastern centers on elucidating protein dynamics and allostery through atomistic molecular dynamics simulations, with the goal of extracting mechanistic insights to improve therapeutic efficacy. Recently, I have leveraged physics-based computational methods to guide the design of high-affinity antibodies.</p>
+        
+        <p><strong>At Genentech (Summer 2025),</strong> I worked as an intern with Jen Hofmann to develop AbACUS, an integrated workflow incorporating coarse-grained simulations and comprehensive analytical workflows to predict the high-concentration biophysical properties of diverse antibody formats.</p>
+        
+        <p><strong>From September 2023 to April 2024,</strong> I completed an internship at Amgen under the supervision of Alla Polozova, where I modeled the IgG1 Fc–CD16a interaction mediating immune responses. The project focused on rational engineering of Fc glycosylation to enhance binding affinity while elucidating the underlying structural mechanisms through molecular dynamics simulations. This work remains ongoing and is a part of my doctoral dissertation.</p>
+        
+        <p>During the initial phases of my PhD, I investigated the conformational dynamics of viral spike proteins from SARS-CoV-2, HIV, and Influenza, with applications toward optimizing existing therapeutic strategies.</p>
+        
+        <p>I have also explored the intersection of AI and drug discovery through a hackathon project that culminated in F.A.D.E: A Fully Agentic Drug Engine. This initiative aims to democratize access to computational drug discovery methodologies. The work has been presented at the Broad Institute (2025) and the American Chemical Society Spring Meeting (2026).</p>
+        
+        <p>Beyond research, I am committed to advancing engineering leadership, a passion cultivated through the Northeastern LEADERs program. This commitment has led me to assume leadership positions including Treasurer of the Chemical Engineering Graduate Student Council and Founding President of the Northeastern Biophysical Society.</p>
+        
+        <div style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(0, 0, 0, 0.1);">
+          <p style="margin-bottom: 15px; font-size: 0.95rem;"><strong>Connect with me:</strong></p>
+          <div style="display: flex; gap: 20px;">
+            <a href="mailto:your.email@northeastern.edu" style="color: var(--accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">Email</a>
+            <a href="https://www.linkedin.com/in/natesan-mani" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">LinkedIn</a>
+            <a href="https://github.com/yourusername" target="_blank" style="color: var(--accent); text-decoration: none; font-weight: 600; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='0.7'" onmouseout="this.style.opacity='1'">GitHub</a>
+          </div>
+        </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+  <!-- Logos Section -->
+  <section id="logos" style="padding: 60px 0; background: transparent;">
+    <h2 style="margin-bottom: 30px;">Organizations</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 40px; align-items: center; justify-items: center; margin-top: 50px;">
+      <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/3c/Genentech_logo.svg/1200px-Genentech_logo.svg.png" alt="Genentech" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">Prescient Design</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Amgen_logo.svg/1200px-Amgen_logo.svg.png" alt="Amgen" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">Amgen</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/7/77/Northeastern_University_seal.svg/1200px-Northeastern_University_seal.svg.png" alt="Northeastern University" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">Northeastern University</p>
+      </div>
+      <div style="text-align: center;">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/5f/University_of_Houston_seal.svg/1200px-University_of_Houston_seal.svg.png" alt="University of Houston" style="height: 60px; object-fit: contain; opacity: 0.8; transition: opacity 0.3s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.8'">
+        <p style="margin-top: 15px; font-size: 0.95rem; color: var(--text-muted);">University of Houston</p>
+      </div>
+    </div>
   </section>
 
-  <section id="education">
-    <h2>Education</h2>
-    <ul>
-      <li><strong>PhD in Chemical Engineering</strong>, Northeastern University (2021 - Present)</li>
-      <li><strong>M.S in Chemical Engineering</strong></strong>, University of Houston (2019 - 2020)</li>
-    </ul>
-  </section>
+  <!-- Footer -->
+  <footer>
+    <p>&copy; 2024 Natesan Mani. Crafted with attention to detail.</p>
+  </footer>
+    </div> <!-- Close content-area -->
+  </div> <!-- Close main-container -->
+
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    // Smooth scroll and active nav highlight
+    const sections = document.querySelectorAll('section');
+    const navLinks = document.querySelectorAll('.top-nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.clientHeight;
+        if (pageYOffset >= sectionTop - 200) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href').slice(1) === current) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // Prevent default anchor behavior and scroll smoothly
+    navLinks.forEach(link => {
+      link.addEventListener('click', (e) => {
+        e.preventDefault();
+        const targetId = link.getAttribute('href').slice(1);
+        const targetSection = document.getElementById(targetId);
+        if (targetSection) {
+          targetSection.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    });
+  </script>
 </body>
 </html>
